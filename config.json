@@ -2,7 +2,7 @@
   "log": {
     "loglevel": "warning"
   },
-  "inbound": {
+  "inbounds": [{
     "protocol": "vmess",
     "port": 8080,
     "settings": {
@@ -16,9 +16,9 @@
     "streamSettings": {
       "network": "ws"
     }
-  },
-  "outbound": {
+  }],
+  "outbounds": [{
     "protocol": "freedom",
     "settings": {}
-  }
+  }]
 }
