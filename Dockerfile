@@ -24,4 +24,5 @@ ADD config.json /config.json
 RUN chmod +x /entrypoint.sh 
 ENTRYPOINT  /entrypoint.sh 
 
-EXPOSE 8080
+EXPOSE 8080/tcp
+EXPOSE 8080/udp
