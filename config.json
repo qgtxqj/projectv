@@ -19,7 +19,7 @@
 		"protocol": "vmess",
 		"settings": {
 			"clients": [{
-				"id": "uuid",
+				"id": "your_uuid",
 				"alterId": 64
 			}]
 		},
