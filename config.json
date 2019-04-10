@@ -1,24 +1,46 @@
 {
-  "log": {
-    "loglevel": "warning"
-  },
-  "inbounds": [{
-    "protocol": "vmess",
-    "port": 8080,
-    "settings": {
-      "clients": [
-        {
-          "id": "your_uuid",
-          "alterId": 64
-        }
-      ]
-    },
-    "streamSettings": {
-      "network": "ws"
-    }
-  }],
-  "outbounds": [{
-    "protocol": "freedom",
-    "settings": {}
-  }]
+	"log": {
+		"loglevel": "warning"
+	},
+	"inbounds": [{
+		"protocol": "vmess",
+		"port": 8080,
+		"settings": {
+			"clients": [{
+				"id": "your_uuid",
+				"alterId": 64
+			}]
+		},
+		"streamSettings": {
+			"network": "ws"
+		}
+	}, {
+		"port": 8080,
+		"protocol": "vmess",
+		"settings": {
+			"clients": [{
+				"id": "uuid",
+				"alterId": 64
+			}]
+		},
+		"streamSettings": {
+			"network": "kcp",
+			"kcpSettings": {
+				"mtu": 1350,
+				"tti": 100,
+				"uplinkCapacity": 10,
+				"downlinkCapacity": 50,
+				"congestion": false,
+				"readBufferSize": 2,
+				"writeBufferSize": 2,
+				"header": {
+					"type": "wechat-video"
+				}
+			}
+		}
+	}],
+	"outbounds": [{
+		"protocol": "freedom",
+		"settings": {}
+	}]
 }
