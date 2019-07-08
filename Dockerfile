@@ -11,11 +11,11 @@ RUN apk add --no-cache --virtual .build-deps busybox bash ca-certificates wget \
  && echo "Asia/Shanghai" > /etc/timezone
  
 ADD files/config.json /etc/v2ray/config.json
-chmod 777 /etc/v2ray/config.json
+RUN chmod 777 /etc/v2ray/config.json
 ADD files/Caddyfile /etc/caddy/Caddyfile
-chmod 777 /etc/caddy/Caddyfile
+RUN chmod 777 /etc/caddy/Caddyfile
 ADD files/index.html /etc/caddy/www/index.html
-chmod 777  /etc/caddy/www/index.html
+RUN chmod 777  /etc/caddy/www/index.html
 ADD run.sh /run.sh
 RUN chmod +x /run.sh
 ENTRYPOINT /run.sh
