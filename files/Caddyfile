@@ -3,7 +3,7 @@
   tls off
   log /etc/caddy/caddy.log
   root /etc/caddy/www/
-  proxy /ws localhost:10000 {
+  proxy /port localhost:10000 {
     websocket
     header_upstream -Origin
   }
