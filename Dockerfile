@@ -1,27 +1,20 @@
 FROM alpine:latest
 
-#ENV CONFIG_JSON=none CERT_PEM=none KEY_PEM=none VER=3.35
+ENV VER=4.19.1 UUID=4890bd47-5180-4b1c-9a5d-3ef686543112
 
-#RUN apk add --no-cache --virtual .build-deps ca-certificates curl \
-# && mkdir -m 777 /v2raybin \ 
-# && cd /v2raybin \
-# && curl -L -H "Cache-Con#trol: no-cache" -o v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
-# && unzip v2ray.zip \
-# && mv /v2raybin/v2ray-v$VER-linux-64/v2ray /v2raybin/ \
-# && mv /v2raybin/v2ray-v$VER-linux-64/v2ctl /v2raybin/ \
-# && mv /v2raybin/v2ray-v$VER-linux-64/geoip.dat /v2raybin/ \
-# && mv /v2raybin/v2ray-v$VER-linux-64/geosite.dat /v2raybin/ \
-# && chmod +x /v2raybin/v2ray \
-# && rm -rf v2ray.zip \
-# && rm -rf v2ray-v$VER-linux-64 \
-# && chgrp -R 0 /v2raybin \
-# && chmod -R g+rwX /v2raybin 
-
-RUN mkdir -m 777 /v2ray
-
-ADD entrypoint.sh /entrypoint.sh
-ADD config.json /config.json
-RUN chmod +x /entrypoint.sh 
-ENTRYPOINT  /entrypoint.sh 
+RUN apk add --no-cache --virtual .build-deps busybox bash ca-certificates wget \
+ && mkdir -m 755 /etc/v2ray \
+ && mkdir -m 755 /etc/caddy \
+ && mkdir -m 755 /etc/caddy/www \
+ && mkdir -m 755 /usr/bin/v2ray \
+ && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \ 
+ && echo "Asia/Shanghai" > /etc/timezone
+ 
+ADD files/config.json /etc/v2ray/config.json
+ADD files/Caddyfile /etc/caddy/Caddyfile
+ADD files/index.html /etc/caddy/www/index.html
+ADD run.sh /run.sh
+RUN chmod +x /run.sh
+ENTRYPOINT /run.sh
 
 EXPOSE 8080
